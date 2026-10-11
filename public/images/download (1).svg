@@ -1,0 +1,16 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650">
+  <defs>
+    <linearGradient id="mountain" x2="0" y2="1">
+      <stop stop-color="#829bb0"></stop>
+      <stop offset="1" stop-color="#263c51"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="650" fill="#d5dce0"></rect>
+  <circle cx="850" cy="150" r="65" fill="#f5e9c9"></circle>
+  <path d="M0 500 L270 130 510 500 770 180 1100 500 1200 410 V650 H0Z" fill="url(#mountain)"></path>
+  <path d="M180 250 L270 130 350 250 290 220 270 245 245 210Z" fill="#f3f1e9"></path>
+  <path d="M650 350 L770 180 900 350 820 310 770 330 735 285Z" fill="#f3f1e9"></path>
+  <path d="M0 540 Q300 480 600 550 T1200 525 V650 H0Z" fill="#243b40"></path>
+  <path d="M0 610 Q350 540 700 610 T1200 590 V650 H0Z" fill="#17292f"></path>
+</svg>

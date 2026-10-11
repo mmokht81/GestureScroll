@@ -1,0 +1,14 @@
+
+AI TOOL USAGE LOG
+Project: Gesture Slideshow Demo
+
+Stage 1 — Project planning
+AI assistance was used to define the project architecture and select React, TypeScript, Vite, and MediaPipe.
+
+Stage 2 — Implementation
+AI assistance was used to draft the slideshow interface, camera initialization, gesture recognition flow, and slide navigation logic.
+
+Stage 3 — Testing
+The developer will run the application, test camera permissions and gesture recognition, identify issues, and record any further AI-assisted changes here.
+
+Note: This log records AI-assisted development. Actual execution and test results must be recorded after they occur.
