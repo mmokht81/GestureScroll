@@ -15,8 +15,6 @@
 
 <br />
 
-**[مشاهده مخزن در GitHub](https://github.com/mmokht81/GestureSlideshow)**
-
 </div>
 
 ---
