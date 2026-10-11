@@ -208,23 +208,9 @@ function App() {
 
   return (
     <main className="app">
-      <header className="topbar">
-        <div className="brand">
-          <span className="brand-mark">G</span>
-          <span>GESTURE<span className="muted">SLIDES</span></span>
-        </div>
-        <span className="live-status">
-          <span className="live-dot" />
-          LIVE DEMO
-        </span>
-      </header>
 
       <section className="intro">
-        <p className="eyebrow">A NEW WAY TO PRESENT</p>
-        <h1>Present with a <span>gesture.</span></h1>
-        <p className="intro-copy">
-          Move through your presentation without touching a button.
-        </p>
+        <h3>Present with a <span>gesture.</span></h3>
       </section>
 
       <section className="presentation">
@@ -308,8 +294,6 @@ function App() {
       </section>
 
       <footer>
-        <span>GESTURE SLIDES · PROTOTYPE</span>
-        <span>DESIGNED FOR A NATURAL PRESENTATION</span>
       </footer>
     </main>
   );
