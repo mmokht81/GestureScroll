@@ -10,72 +10,22 @@ type Point = {
   y: number;
   z?: number;
 };
+// SCROLL_SENSITIVITY
 
-type Direction = "up" | "down" | null;
 
 function distance(a: Point, b: Point) {
   return Math.hypot(a.x - b.x, a.y - b.y);
 }
 
-function getPointingDirection(landmarks: Point[]): Direction {
-  const wrist = landmarks[0];
-  const indexMcp = landmarks[5];
-  const indexPip = landmarks[6];
+function getPinchDistance(landmarks: Point[]): number | null {
+  const thumbTip = landmarks[4];
   const indexTip = landmarks[8];
 
-  const middlePip = landmarks[10];
-  const middleTip = landmarks[12];
-
-  const ringPip = landmarks[14];
-  const ringTip = landmarks[16];
-
-  const pinkyPip = landmarks[18];
-  const pinkyTip = landmarks[20];
-
-  if (
-    !wrist ||
-    !indexMcp ||
-    !indexPip ||
-    !indexTip ||
-    !middlePip ||
-    !middleTip ||
-    !ringPip ||
-    !ringTip ||
-    !pinkyPip ||
-    !pinkyTip
-  ) {
+  if (!thumbTip || !indexTip) {
     return null;
   }
 
-  const indexIsExtended =
-    distance(indexTip, indexMcp) >
-    distance(indexPip, indexMcp) * 1.15;
-
-  if (!indexIsExtended) return null;
-
-  const middleFolded =
-    distance(middleTip, wrist) <
-    distance(middlePip, wrist) * 1.05;
-
-  const ringFolded =
-    distance(ringTip, wrist) <
-    distance(ringPip, wrist) * 1.05;
-
-  const pinkyFolded =
-    distance(pinkyTip, wrist) <
-    distance(pinkyPip, wrist) * 1.05;
-
-  if (!middleFolded || !ringFolded || !pinkyFolded) {
-    return null;
-  }
-
-  const verticalDifference = indexTip.y - indexPip.y;
-  const threshold = 0.035;
-
-  if (verticalDifference < -threshold) return "up";
-  if (verticalDifference > threshold) return "down";
-
-  return null;
+  return distance(thumbTip, indexTip);
 }
 
 function App() {
@@ -94,7 +44,12 @@ function App() {
     let lastVideoTime = -1;
     let lastUiMessage = "";
 
-    const SCROLL_STEP = 5;
+    const PINCH_START_DISTANCE = 0.055;
+    const PINCH_RELEASE_DISTANCE = 0.075;
+    const SCROLL_SENSITIVITY = 1300;
+
+    let isPinching = false;
+    let previousHandY: number | null = null;
 
     function updateGesture(message: string) {
       if (message !== lastUiMessage) {
@@ -167,30 +122,59 @@ function App() {
             const landmarks = result.landmarks?.[0];
 
             if (!landmarks) {
-              updateGesture("Keep your hand in view");
+              isPinching = false;
+              previousHandY = null;
+
+              updateGesture("Hand not detected — show your hand to the camera");
             } else {
-              const direction = getPointingDirection(landmarks);
+              const pinchDistance = getPinchDistance(landmarks);
+              const indexTip = landmarks[8];
 
-              if (direction === "up") {
-                window.scrollBy({
-                  top: -SCROLL_STEP,
-                  left: 0,
-                  behavior: "auto",
-                });
-
-                updateGesture("Pointing up — scrolling upward");
-              } else if (direction === "down") {
-                window.scrollBy({
-                  top: SCROLL_STEP,
-                  left: 0,
-                  behavior: "auto",
-                });
-
-                updateGesture("Pointing down — scrolling downward");
+              if (pinchDistance === null || !indexTip) {
+                isPinching = false;
+                previousHandY = null;
+                updateGesture("Keep your thumb and index finger visible");
               } else {
-                updateGesture(
-                  "Point only your index finger up or down",
-                );
+                // شروع گرفتن صفحه
+                if (!isPinching && pinchDistance < PINCH_START_DISTANCE) {
+                  isPinching = true;
+
+                  // فقط موقعیت شروع را ذخیره می‌کنیم؛
+                  // در همان لحظه صفحه حرکت نمی‌کند.
+                  previousHandY = indexTip.y;
+
+                  updateGesture("Pinch active — move your hand up or down");
+                }
+
+                // رها کردن صفحه
+                else if (isPinching && pinchDistance > PINCH_RELEASE_DISTANCE) {
+                  isPinching = false;
+                  previousHandY = null;
+
+                  updateGesture("Pinch released — scrolling stopped");
+                }
+
+                // حرکت دست درحالی‌که انگشت‌ها به هم چسبیده‌اند
+                else if (isPinching) {
+                  if (previousHandY !== null) {
+                    const deltaY = indexTip.y - previousHandY;
+
+                    // حرکت خیلی کوچک نادیده گرفته می‌شود تا لرزش کمتر شود.
+                    if (Math.abs(deltaY) > 0.0015) {
+                      window.scrollBy({
+                        top: deltaY * SCROLL_SENSITIVITY,
+                        left: 0,
+                        behavior: "auto",
+                      });
+                    }
+                  }
+
+                  previousHandY = indexTip.y;
+
+                  updateGesture("Pinch active — move your hand up or down");
+                } else {
+                  updateGesture("Pinch your thumb and index finger to grab the page");
+                }
               }
             }
           }
@@ -259,9 +243,11 @@ return (
       <p className="gesture-reading">{gesture}</p>
 
       <div className="camera-hint">
-        ☝️ Point up: Scroll up
+        🤏 Pinch: Grab page
         <br />
-        👇 Point down: Scroll down
+        ↕️ Move hand: Scroll
+        <br />
+        ✋ Release: Stop
       </div>
     </aside>
 
