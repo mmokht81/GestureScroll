@@ -1,172 +1,80 @@
-#  GestureSlideshow
+# GestureScroll
 
-<div align="center">
+Control web page scrolling with hand gestures using your webcam, React, and MediaPipe.
 
-### کنترل اسلایدها با حرکات دست، بدون نیاز به ماوس یا کیبورد!
+## Features
 
-یک اسلایدشو تعاملی که با استفاده از بینایی ماشین و هوش مصنوعی، حرکات دست را از طریق دوربین تشخیص می‌دهد و بر اساس آن بین اسلایدها جابه‌جا می‌شود.
+- Real-time hand tracking in the browser
+- Pinch your thumb and index finger to grab the page
+- Move your hand up or down to scroll
+- Release the pinch to stop scrolling
+- Adjustable scroll sensitivity
+- Live camera preview and gesture status
 
-<br />
+## Tech Stack
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![MediaPipe](https://img.shields.io/badge/MediaPipe-0097A7?style=for-the-badge&logo=google&logoColor=white)
+- React
+- TypeScript
+- Vite
+- MediaPipe Tasks Vision
 
-</div>
+## Getting Started
 
----
-
-##  درباره پروژه
-
-**GestureSlideshow** یک پروژه‌ی تعاملی مبتنی بر تشخیص حرکات دست است که امکان کنترل اسلایدها را با استفاده از دوربین فراهم می‌کند.
-
-در این پروژه، کتابخانه‌ی MediaPipe برای تشخیص حرکات دست استفاده شده است. با انجام یک حرکت مشخص، اسلاید قبلی یا بعدی نمایش داده می‌شود؛ بنابراین برای جابه‌جایی بین اسلایدها نیازی به لمس دستگاه یا استفاده از ابزارهای ورودی سنتی نیست.
-
-##  قابلیت‌ها
-
--  تشخیص حرکات دست با استفاده از دوربین
--  رفتن به اسلاید بعدی با حرکت انگشت اشاره
--  بازگشت به اسلاید قبلی با مشت کردن دست
--  پیمایش چرخشی بین اسلایدها
--  استفاده از آستانه اطمینان برای تشخیص حرکت
--  پردازش تعاملی حرکات با MediaPipe Gesture Recognizer
--  ساختار توسعه‌پذیر مبتنی بر React و TypeScript
-
-##  راهنمای حرکات
-
-| حرکت دست | عملکرد |
-|:---:|---|
-| ☝️ انگشت اشاره | رفتن به اسلاید بعدی |
-| ✊ مشت کردن دست | رفتن به اسلاید قبلی |
-| 🤚 دست در حالت خنثی | آماده‌سازی برای تشخیص حرکت بعدی |
-
-> **نکته:** برای عملکرد صحیح، دست باید در محدوده دید دوربین قرار داشته باشد و مرورگر اجازه دسترسی به دوربین را دریافت کرده باشد.
-
-##  فناوری‌های استفاده‌شده
-
-| فناوری | کاربرد |
-|---|---|
-| React | ساخت رابط کاربری |
-| TypeScript | توسعه کد با قابلیت بررسی نوع داده‌ها |
-| Vite | اجرای سرور توسعه و ساخت نسخه نهایی |
-| MediaPipe Gesture Recognizer | تشخیص حرکات دست |
-| HTML & CSS | ساختار و طراحی رابط کاربری |
-
-##  پیش‌نیازها
-
-قبل از اجرای پروژه، موارد زیر باید روی سیستم نصب باشند:
-
-- [Node.js](https://nodejs.org/)
-- npm
-- یک مرورگر مدرن با پشتیبانی از دوربین
-
-##  نصب و اجرا
-
-### ۱. دریافت پروژه
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/mmokht81/GestureSlideshow.git
+git clone https://github.com/mmokht81/GestureScroll.git
+cd GestureScroll
 ```
 
-### ۲. ورود به پوشه پروژه
-
-```bash
-cd GestureSlideshow
-```
-
-### ۳. نصب وابستگی‌ها
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### ۴. اجرای محیط توسعه
+### 3. Start the development server
 
 ```bash
 npm run dev
 ```
 
-پس از اجرا، آدرس محلی نمایش‌داده‌شده در ترمینال را در مرورگر باز کنید.
+Open the local URL shown in your terminal and allow camera access when prompted.
 
-### ۵. ساخت نسخه نهایی
+## Usage
 
-برای بررسی TypeScript و ساخت نسخه قابل انتشار، از اسکریپت‌های تعریف‌شده در پروژه استفاده کنید. در صورت وجود اسکریپت build استاندارد Vite:
+1. Wait for the camera to initialize.
+2. Pinch your thumb and index finger together to grab the page.
+3. Move your hand up or down to scroll.
+4. Release the pinch to stop scrolling.
+
+## Configuration
+
+In `src/App.tsx`, adjust `SCROLL_SENSITIVITY` to change the scrolling speed.
+
+```ts
+const SCROLL_SENSITIVITY = 1300;
+```
+
+Higher values make scrolling faster; lower values make it slower.
+
+## Requirements
+
+- Node.js and npm
+- A modern browser with webcam support
+- Camera permission
+- MediaPipe model and WASM assets in the expected `public/` paths
+
+## Build
+
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-فایل‌های خروجی معمولاً در پوشه `dist/` قرار می‌گیرند.
+The generated files are placed in `dist/`.
 
-##  منطق تشخیص حرکات
+## License
 
-فرایند کلی برنامه به شکل زیر است:
-
-1. دریافت تصویر از دوربین.
-2. تحلیل تصویر توسط MediaPipe Gesture Recognizer.
-3. شناسایی حرکت دست و بررسی میزان اطمینان تشخیص.
-4. بررسی تداوم حرکت برای کاهش تغییرات ناخواسته.
-5. اجرای عملکرد مربوط به حرکت تشخیص‌داده‌شده.
-6. انتظار برای بازگشت دست به حالت خنثی و آماده‌شدن برای حرکت بعدی.
-
-برای جلوگیری از اجرای مکرر یک فرمان، تعداد فریم‌های موردنیاز برای تأیید حرکت و بازنشانی وضعیت تشخیص قابل تنظیم است.
-
-##  ساختار اصلی پروژه
-
-```text
-GestureSlideshow/
-├── public/
-│   ├── models/
-│   │   └── gesture_recognizer.task
-│   └── mediapipe/
-│       └── wasm/
-├── src/
-│   ├── App.tsx
-│   ├── App.css
-│   ├── index.css
-│   └── main.tsx
-├── index.html
-├── package.json
-├── package-lock.json
-├── vite.config.ts
-└── README.md
-```
-
-- `src/App.tsx` — منطق اصلی برنامه و مدیریت حرکات دست
-- `src/App.css` — استایل‌های رابط کاربری
-- `public/models/` — فایل مدل تشخیص حرکات
-- `public/mediapipe/wasm/` — فایل‌های WebAssembly موردنیاز MediaPipe
-- `package.json` — وابستگی‌ها و اسکریپت‌های پروژه
-- `README.md` — مستندات پروژه
-
-##  تنظیم حساسیت تشخیص
-
-برای تغییر رفتار تشخیص حرکات، می‌توان مقادیر مربوط به تعداد فریم‌های موردنیاز و حداقل میزان اطمینان را در منطق برنامه تنظیم کرد.
-
-مقادیر فعلی:
-
-| تنظیم | مقدار |
-|---|---:|
-| فریم موردنیاز برای انگشت اشاره | ۲ |
-| فریم موردنیاز برای مشت | ۳ |
-| فریم موردنیاز برای بازگشت به حالت خنثی | ۶ |
-| حداقل میزان اطمینان | ۰٫۶۰ |
-
-افزایش تعداد فریم‌های موردنیاز معمولاً باعث تشخیص محتاطانه‌تر می‌شود؛ کاهش آن می‌تواند واکنش برنامه را سریع‌تر کند، اما احتمال تشخیص ناخواسته را افزایش می‌دهد.
-
-##  نکات مهم
-
-- دسترسی دوربین باید در مرورگر مجاز باشد.
-- فایل مدل `gesture_recognizer.task` باید در مسیر مورد انتظار برنامه وجود داشته باشد.
-- فایل‌های MediaPipe WASM باید در مسیر صحیح قرار داشته باشند.
-- برای اجرای محلی، از سرور توسعه Vite استفاده کنید؛ بازکردن مستقیم فایل HTML ممکن است باعث اختلال در بارگذاری منابع شود.
-
-
----
-
-<div align="center">
-
-**ساخته‌شده با React، TypeScript و MediaPipe** 💙
-
-</div>
+No license specified.

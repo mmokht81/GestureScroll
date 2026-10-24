@@ -103,7 +103,7 @@ function App() {
           return;
         }
 
-        setStatus("Camera is active. Point your index finger up or down.");
+        setStatus("Camera is active. Pinch to grab and scroll.");
 
         function detectFrame() {
           if (cancelled || !video || !recognizer) return;
